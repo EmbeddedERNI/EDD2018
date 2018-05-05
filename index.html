@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Embedded Community - Iot</title>
+	<meta name="description" content="Internet Of Things comparisson between Google, Amazon and Microsoft">
+
+	<link rel="stylesheet" href="reveal.js/css/reveal.css">
+	<link rel="stylesheet" href="reveal.js/css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+	<style>
+		#company-logo {
+			margin: 10px;
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<img id="company-logo" src="https://www.betterask.erni/var/erni/storage/images/settings2/227-1-eng-GB/Settings.png" alt="">
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>Internet Of Things Platforms</h1>
+				<h3>Embedded Community</h3>
+				<small>
+					<p>
+						Hernan Bartoletti
+						<br> Jaime Bohigas
+						<br> Victor Pérez
+						<br>
+					</p>
+				</small>
+				<aside class="notes">
+					To present this online follow instructions in
+					<a href="https://stackoverflow.com/questions/31163633/how-to-host-a-reveal-js-presentation">this link</a>
+					</aside>
+
+			</section>
+			<section>
+
+			</section>
+		</div>
+	</div>
+
+	<script src="reveal.js/lib/js/head.min.js"></script>
+	<script src="reveal.js/js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'reveal.js/plugin/markdown/marked.js' },
+				{ src: 'reveal.js/plugin/zoom-js/zoom.js' },
+				{ src: 'reveal.js/plugin/markdown/markdown.js' },
+				{ src: 'reveal.js/plugin/notes/notes.js', async: true },
+				{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
+</html>
