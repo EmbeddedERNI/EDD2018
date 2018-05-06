@@ -9,7 +9,7 @@
 	<meta name="description" content="Internet Of Things comparisson between Google, Amazon and Microsoft">
 
 	<link rel="stylesheet" href="reveal.js/css/reveal.css">
-	<link rel="stylesheet" href="reveal.js/css/theme/black.css">
+	<link rel="stylesheet" href="reveal.js/css/theme/white.css">
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
@@ -22,18 +22,10 @@
 		link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
-	<style>
-		#company-logo {
-			margin: 10px;
-			position: absolute;
-			bottom: 10px;
-			right: 10px;
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<img id="company-logo" src="https://www.betterask.erni/var/erni/storage/images/settings2/227-1-eng-GB/Settings.png" alt="">
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -50,14 +42,144 @@
 				<aside class="notes">
 					To present this online follow instructions in
 					<a href="https://stackoverflow.com/questions/31163633/how-to-host-a-reveal-js-presentation">this link</a>
-					</aside>
-
+				</aside>
 			</section>
 			<section>
+				<section data-background-image="">
+					<h1>Introduction</h1>
+					<aside class="notes">
+						Introduce yourself
+					</aside>
+				</section>
+				<section data-background-image="">
+					<h2>Víctor Pérez</h2>
+					<div class="right fragment" data-autoslide="1000">
+						<img data-src="img/victor.png" alt="">
+					</div>
+					<div class="left fragment">
+						<ul>
+							<li>Working at HP</li>
+							<li>BigData Proyect</li>
+							<li>Passion for Programming</li>
+						</ul>
+					</div>
+				</section>
+				<section data-background-image="">
+					<h2>Hernan Bartoletti</h2>
+					<div class="right fragment" data-autoslide="1000">
+						<img data-src="https://media.licdn.com/dms/image/C4E03AQFXpT-iItMApg/profile-displayphoto-shrink_800_800/0?e=1531353600&v=beta&t=1PbJscszu7Q3H67UOAD9KtJofOH-8DYMo0jXYhC7og8"
+						 alt="">
+					</div>
+					<div class="left fragment">
+						<ul>
+						</ul>
+					</div>
+				</section>
+				<section data-background-image="">
+					<h2>Jaime Bohigas</h2>
+					<div class="right fragment" data-autoslide="1000">
+						<img data-src="" alt="">
+					</div>
+					<div class="left fragment">
+						<ul>
+						</ul>
+					</div>
+				</section>
+			</section>
 
+			<section>
+				<section data-background-image="">
+					<img data-src="img/mqtt.png" style="width:80%" alt="">
+					<aside class="notes">
+						mqtt as IoT protocol
+					</aside>
+				</section>
+				<section>
+					<ul>
+						<li>
+							Simple to implement
+						</li>
+						<li>
+							Lightweight and Bandwidth Efficient
+						</li>
+						<li>
+							Provide a Quality of Service (QoS)
+						</li>
+						<li>
+							Continuous Session Awareness
+						</li>
+					</ul>
+				</section>
+				<section>
+					<img data-src="img/mqtt-example-1.png" alt="">
+				</section>
+				<section>
+					<h1>topics</h1>
+					<img class="fragment" width="50%" data-src="img/mqtt-topics-1.png" alt="">
+					<img class="fragment" width="50%" data-src="img/mqtt-topics-2.png" alt="">
+					<img class="fragment" width="50%" data-src="img/mqtt-topics-2.png" alt="">
+				</section>
+				<section>
+					<h1>QoS</h1>
+					<img class="fragment" width="40%" data-src="img/mqtt-qos-1.png" alt="">
+					<img class="fragment" width="40%" data-src="img/mqtt-qos-2.png" alt="">
+					<img class="fragment" width="40%" data-src="img/mqtt-qos-3.png" alt="">
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h1>Available Providers</h1>
+					<aside class="notes">
+						We are going to compare 3 providers
+					</aside>
+				</section>
+				<section data-background-image="img/aws-bg.jpg">
+					<!-- <h1>Amazon Web Services</h1> -->
+					<img data-src="img/aws.png" style="background-color: white;width:80%" alt="">
+				</section>
+				<section data-background-image="img/google-bg.png">
+					<!-- <h1>Google Cloud</h1> -->
+					<img data-src="img/google.svg" style="background-color: transparent ;width:80%" alt="">
+				</section>
+				<section data-background-image="img/azure-bg.png">
+					<!-- <h1>Microsoft Azure</h1> -->
+					<img data-src="img/azure.png" style="background-color:#31D2F7 ;width:80%" alt="">
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Local setup</h1>
+				</section>
+				<section>
+					<img data-src="img/rpi.png" alt="">
+				</section>
+				<section>
+					Arduino
+				</section>
+			</section>
+			<section data-background-image="img/google-bg.png">
+				<section>
+					<h1>Google Time</h1>
+				</section>
+			</section>
+				<section data-background-image="img/azure-bg.png">
+				<section>
+					<h1>Azure Time</h1>
+				</section>
+			</section>
+				<section data-background-image="img/aws-bg.jpg">
+				<section>
+					<h1>Amazon Time</h1>
+				</section>
+			</section>
+			<section>
+				<h1>overall</h1>
 			</section>
 		</div>
 	</div>
+
+	<img id="company-logo" src="https://www.betterask.erni/var/erni/storage/images/settings2/227-1-eng-GB/Settings.png" alt="">
 
 	<script src="reveal.js/lib/js/head.min.js"></script>
 	<script src="reveal.js/js/reveal.js"></script>
@@ -73,7 +195,8 @@
 				{ src: 'reveal.js/plugin/markdown/markdown.js' },
 				{ src: 'reveal.js/plugin/notes/notes.js', async: true },
 				{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
-			]
+			],
+			history: true,
 		});
 	</script>
 </body>
