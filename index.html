@@ -22,6 +22,94 @@
 		link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
+	<!-- Handle WebSocket-->
+	<script>  
+		window.addEventListener("load", function (evt) {
+			var output = document.getElementById("output");
+			//var input = document.getElementById("input");
+			var ws;
+			var print = function (message) {
+				output.innerHTML = message
+			};
+			var handle = function (data) {
+				id = data.topic.split("/")[2]
+				target = document.getElementById(id)
+				if (!target){
+					return
+				}
+				payload = JSON.parse(data.payload)
+				print(payload.state.reported.State)
+				if (payload.state.reported.State == "ON") {
+					target.src = "img/on.png"
+				} else {
+					target.src = "img/off.png"
+				}
+				if (id == "Lamp1"){
+					var data = {
+						"id":"Lamp1",
+						"action":"update",
+						"payload": {
+							"state":{
+								"reported": payload.state.desired
+							}
+						}
+					}
+					ws.send(JSON.stringify(data))
+				}
+				//target.innerHTML = JSON.stringify(data);
+			}
+			document.getElementById("open").onclick = function (evt) {
+				if (ws) {
+					return false;
+				}
+				ws = new WebSocket("ws://localhost:4430/ws");
+				ws.onopen = function (evt) {
+					print("OPEN");
+					var data = {
+						"id": "Lamp1",
+						"action":"get"
+					}
+					ws.send(JSON.stringify(data))
+					var data = {
+						"id": "Lamp2",
+						"action":"get"
+					}
+					ws.send(JSON.stringify(data))
+					var data = {
+						"id": "Lamp3",
+						"action":"get"
+					}
+					ws.send(JSON.stringify(data))
+				}
+				ws.onclose = function (evt) {
+					print("CLOSE");
+					ws = null;
+				}
+				ws.onmessage = function (evt) {
+					handle(JSON.parse(evt.data))
+				}
+				ws.onerror = function (evt) {
+					print(evt.data);
+				}
+				return false;
+			};
+			// document.getElementById("send").onclick = function (evt) {
+			// 	if (!ws) {
+			// 		return false;
+			// 	}
+			// 	//print("SEND: " + input.value);
+			// 	//ws.send(input.value);
+			// 	return false;
+			// };
+			document.getElementById("close").onclick = function (evt) {
+				if (!ws) {
+					return false;
+				}
+				ws.close();
+				return false;
+			};
+		});
+	</script>
 	<link rel="stylesheet" href="style.css">
 </head>
 
@@ -163,14 +251,52 @@
 					<h1>Google Time</h1>
 				</section>
 			</section>
-				<section data-background-image="img/azure-bg.png">
+			<section data-background-image="img/azure-bg.png">
 				<section>
 					<h1>Azure Time</h1>
 				</section>
 			</section>
-				<section data-background-image="img/aws-bg.jpg">
+			<section data-background-image="img/aws-bg.jpg">
 				<section>
 					<h1>Amazon Time</h1>
+				</section>
+				<section>
+					<h3>Connect and manage your devices</h3>
+					<img src="img/aws-benefits-1.png" alt="">
+					<aside class="notes">
+						<ul>
+							<li>http, websockets, mqtt</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h3>Secure device connections and data</h3>
+					<img src="img/aws-benefits-2.png" alt="">
+				</section>
+				<section>
+					<h3>Process and act upon device data</h3>
+					<img src="img/aws-benefits-3.png" alt="">
+				</section>
+				<section>
+					<h3>Read and set device state at any time</h3>
+					<img src="img/aws-benefits-4.png" alt="">
+				</section>
+				<section>
+					<h1>
+						<a href="https://console.aws.amazon.com/iot/home?region=us-east-1#/tutorial?step=1">Interactive Tutorial</a>
+					</h1>
+				</section>
+				<section>
+					<img data-src="img/simulator-schema.svg" alt="" style="background-color: #ffffff88;border: transparent; width: 75%;">
+				</section>
+				<section>
+					<button id="open">OPEN</button>
+					<button id="close">CLOSE</button><br>
+					<img src="img/on.png" id="Lamp1" style="background-color: #ffffff88;width: 25%">
+					<img src="img/on.png" id="Lamp2" style="background-color: #ffffff88;width: 25%">
+					<img src="img/on.png" id="Lamp3" style="background-color: #ffffff88;width: 25%">
+					<div id="output"></div>
+
 				</section>
 			</section>
 			<section>
