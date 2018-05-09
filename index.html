@@ -27,6 +27,35 @@
 		window.addEventListener("load", function (evt) {
 			var output = document.getElementById("output");
 			//var input = document.getElementById("input");
+			document.getElementById("Lamp1").onclick = function (evt){
+					var data = {
+						"id":"Lamp1",
+						"action":"update",
+						"payload": {
+							"state":{
+								"desired":  {
+									"State": "ON"
+								}
+							}
+						}
+					}
+				ws.send(JSON.stringify(data))
+			}
+
+			document.getElementById("Lamp2").onclick = function (evt){
+					var data = {
+						"id":"Lamp1",
+						"action":"update",
+						"payload": {
+							"state":{
+								"desired":  {
+									"State": "OFF"
+								}
+							}
+						}
+					}
+				ws.send(JSON.stringify(data))
+			}
 			var ws;
 			var print = function (message) {
 				output.innerHTML = message
