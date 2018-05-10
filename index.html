@@ -386,15 +386,39 @@
 				<section>
 					<h1>Shadow Device</h1>
 					<div class="fragment">
+						<ul>
+							<li>Desired</li>
+							<li>Reported</li>
+							<li>Delta</li>
+						</ul>
+
+						<aside class="notes">
+							Device it's not upgraded directly, only the shadow with desired states
+						</aside>
+				</section>
+				<section>
+					<h1>Shadow Topics</h1>
+					<h4>$aws/things/thingName/</h4>
 					<ul>
-						<li>Desired</li>
-						<li>Reported</li>
-						<li>Delta</li>
+						<li>
+							/update
+						</li>
+						<li>
+							/update/accepted - 
+							/update/rejected
+						</li>
+						<li>
+							/update/delta
+						</li>
+						<li>
+							/get
+						</li>
+						<li>
+							/get/accepted -
+							/get/rejected
+						</li>
 					</ul>
 
-					<aside class="notes">
-						Device it's not upgraded directly, only the shadow with desired states
-					</aside>
 				</section>
 				<section>
 					<h1>Add Simulator</h1>
@@ -411,13 +435,13 @@
 			</section>
 			<section data-background-image="img/aws-bg.jpg">
 				<section>
-				<button id="open">OPEN</button>
-				<button id="close">CLOSE</button>
-				<br>
-				<img src="img/on.png" id="Lamp3" style="background-color: #ffffff88;width: 25%" title="Lamp3" >
-				<img src="img/on.png" id="Lamp1" style="background-color: #ffffff88;width: 25%" title="Lamp1">
-				<img src="img/on.png" id="Lamp2" style="background-color: #00ffff88;width: 25%" title="Lamp2">
-				<div id="output"></div>
+					<button id="open">OPEN</button>
+					<button id="close">CLOSE</button>
+					<br>
+					<img src="img/on.png" id="Lamp3" style="background-color: #ffffff88;width: 25%" title="Lamp3">
+					<img src="img/on.png" id="Lamp1" style="background-color: #ffffff88;width: 25%" title="Lamp1">
+					<img src="img/on.png" id="Lamp2" style="background-color: #00ffff88;width: 25%" title="Lamp2">
+					<div id="output"></div>
 				</section>
 				<section>
 					<img data-src="img/aws-tutorial.png" alt="">
@@ -426,29 +450,29 @@
 			<section>
 				<h1>overall</h1>
 			</section>
+			</div>
 		</div>
-	</div>
 
-	<img id="company-logo" src="https://www.betterask.erni/var/erni/storage/images/settings2/227-1-eng-GB/Settings.png" alt="">
+		<img id="company-logo" src="https://www.betterask.erni/var/erni/storage/images/settings2/227-1-eng-GB/Settings.png" alt="">
 
-	<script src="reveal.js/lib/js/head.min.js"></script>
-	<script src="reveal.js/js/reveal.js"></script>
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.js"></script>
 
-	<script>
-		// More info about config & dependencies:
-		// - https://github.com/hakimel/reveal.js#configuration
-		// - https://github.com/hakimel/reveal.js#dependencies
-		Reveal.initialize({
-			dependencies: [
-				{ src: 'reveal.js/plugin/markdown/marked.js' },
-				{ src: 'reveal.js/plugin/zoom-js/zoom.js' },
-				{ src: 'reveal.js/plugin/markdown/markdown.js' },
-				{ src: 'reveal.js/plugin/notes/notes.js', async: true },
-				{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
-			],
-			history: true,
-		});
-	</script>
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'reveal.js/plugin/markdown/marked.js' },
+					{ src: 'reveal.js/plugin/zoom-js/zoom.js' },
+					{ src: 'reveal.js/plugin/markdown/markdown.js' },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+				],
+				history: true,
+			});
+		</script>
 </body>
 
 </html>
