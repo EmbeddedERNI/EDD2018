@@ -24,67 +24,95 @@
 	</script>
 	<!-- Handle WebSocket-->
 	<script>  
+		function checkNested(obj /*, level1, level2, ... levelN*/) {
+			var args = Array.prototype.slice.call(arguments, 1);
+
+			for (var i = 0; i < args.length; i++) {
+				if (!obj || !obj.hasOwnProperty(args[i])) {
+					return false;
+				}
+				obj = obj[args[i]];
+			}
+			return true;
+		}
 		window.addEventListener("load", function (evt) {
 			var output = document.getElementById("output");
 			//var input = document.getElementById("input");
-			document.getElementById("Lamp1").onclick = function (evt){
+
+
+			var ws;
+			addClickHandler = function (id) {
+				target = document.getElementById(id)
+				target.onclick = function (evt) {
+					console.log("click")
+					sendState = "ON"
+					if (target.src.endsWith("img/on.png")) {
+						sendState = "OFF"
+					}
 					var data = {
-						"id":"Lamp1",
-						"action":"update",
+						"id": id,
+						"action": "update",
 						"payload": {
-							"state":{
-								"desired":  {
-									"State": "ON"
+							"state": {
+								"desired": {
+									"State": sendState
 								}
 							}
 						}
 					}
-				ws.send(JSON.stringify(data))
+					ws.send(JSON.stringify(data))
+				}
+			}
+			autoAccept = function (msgid, targetid, payload) {
+				if (msgid == targetid && checkNested(payload, "state", "desired")) {
+					var data = {
+						"id": targetid,
+						"action": "update",
+						"payload": {
+							"state": {
+								"reported": payload.state.desired,
+							}
+
+						}
+					}
+					ws.send(JSON.stringify(data))
+				}
 			}
 
-			document.getElementById("Lamp2").onclick = function (evt){
-					var data = {
-						"id":"Lamp1",
-						"action":"update",
-						"payload": {
-							"state":{
-								"desired":  {
-									"State": "OFF"
-								}
-							}
-						}
-					}
-				ws.send(JSON.stringify(data))
-			}
-			var ws;
+			addClickHandler("Lamp1")
+			addClickHandler("Lamp2")
+			addClickHandler("Lamp3")
+
 			var print = function (message) {
 				output.innerHTML = message
 			};
 			var handle = function (data) {
 				id = data.topic.split("/")[2]
 				target = document.getElementById(id)
-				if (!target){
+				if (!target) {
 					return
 				}
 				payload = JSON.parse(data.payload)
-				print(payload.state.reported.State)
-				if (payload.state.reported.State == "ON") {
+				if (checkNested(payload, "state", "reported", "State") && payload.state.reported.State == "ON") {
 					target.src = "img/on.png"
-				} else {
+				} else if (checkNested(payload, "state", "reported", "State") && payload.state.reported.State == "OFF") {
 					target.src = "img/off.png"
 				}
-				if (id == "Lamp1"){
-					var data = {
-						"id":"Lamp1",
-						"action":"update",
-						"payload": {
-							"state":{
-								"reported": payload.state.desired
-							}
-						}
-					}
-					ws.send(JSON.stringify(data))
-				}
+
+				autoAccept(id, "Lamp2", payload)
+				// if (id == "Lamp2" && checkNested(payload, "state", "desired")) {
+				// 	var data = {
+				// 		"id": "Lamp2",
+				// 		"action": "update",
+				// 		"payload": {
+				// 			"state": {
+				// 				"reported": payload.state.desired,
+				// 			}
+
+				// 		}
+				// 	}
+				// 	ws.send(JSON.stringify(data))
+				// }
 				//target.innerHTML = JSON.stringify(data);
 			}
 			document.getElementById("open").onclick = function (evt) {
@@ -96,17 +124,17 @@
 					print("OPEN");
 					var data = {
 						"id": "Lamp1",
-						"action":"get"
+						"action": "get"
 					}
 					ws.send(JSON.stringify(data))
 					var data = {
 						"id": "Lamp2",
-						"action":"get"
+						"action": "get"
 					}
 					ws.send(JSON.stringify(data))
 					var data = {
 						"id": "Lamp3",
-						"action":"get"
+						"action": "get"
 					}
 					ws.send(JSON.stringify(data))
 				}
@@ -212,6 +240,11 @@
 					</aside>
 				</section>
 				<section>
+					MQTT (Message Queuing Telemetry Transport) is an ISO standard (ISO/IEC PRF 20922)[2] publish-subscribe-based messaging protocol.
+					<br> It works on top of the TCP/IP protocol and it is designed for connections with remote locations where a "small code
+					footprint" is required or the network bandwidth is limited.
+				</section>
+				<section>
 					<ul>
 						<li>
 							Simple to implement
@@ -234,13 +267,33 @@
 					<h1>topics</h1>
 					<img class="fragment" width="50%" data-src="img/mqtt-topics-1.png" alt="">
 					<img class="fragment" width="50%" data-src="img/mqtt-topics-2.png" alt="">
-					<img class="fragment" width="50%" data-src="img/mqtt-topics-2.png" alt="">
+					<img class="fragment" width="50%" data-src="img/mqtt-topics-3.png" alt="">
 				</section>
 				<section>
 					<h1>QoS</h1>
 					<img class="fragment" width="40%" data-src="img/mqtt-qos-1.png" alt="">
 					<img class="fragment" width="40%" data-src="img/mqtt-qos-2.png" alt="">
 					<img class="fragment" width="40%" data-src="img/mqtt-qos-3.png" alt="">
+				</section>
+				<section>
+					<h1>Protocols</h1>
+					<ul>
+						<li>TCP</li>
+						<li>UDP</li>
+						<li>WebSockets</li>
+					</ul>
+				</section>
+				<section>
+					<h1>mosquitto</h1>
+					Eclipse Mosquitto is an open source (EPL/EDL licensed) message broker that implements the MQTT protocol versions 3.1 and
+					3.1.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full
+					servers.
+				</section>
+				<section>
+					<h1>LET'S TRY THIS</h1>
+				</section>
+				<section>
+					<img data-src="img/mqtt-example-1.png" alt="">
 				</section>
 			</section>
 
@@ -269,10 +322,16 @@
 					<h1>Local setup</h1>
 				</section>
 				<section>
+					<h1>Local Router</h1>
+					<aside class="notes">
+						We are using a router to setup the local network and get internet from a mobile phone.
+					</aside>
+				</section>
+				<section>
 					<img data-src="img/rpi.png" alt="">
 				</section>
 				<section>
-					Arduino
+					<h1>Simulator</h1>
 				</section>
 			</section>
 			<section data-background-image="img/google-bg.png">
@@ -314,18 +373,54 @@
 					<h1>
 						<a href="https://console.aws.amazon.com/iot/home?region=us-east-1#/tutorial?step=1">Interactive Tutorial</a>
 					</h1>
+					<aside class="notes">
+						includes device rules and shadows in tutorial
+					</aside>
 				</section>
 				<section>
 					<img data-src="img/simulator-schema.svg" alt="" style="background-color: #ffffff88;border: transparent; width: 75%;">
 				</section>
 				<section>
-					<button id="open">OPEN</button>
-					<button id="close">CLOSE</button><br>
-					<img src="img/on.png" id="Lamp1" style="background-color: #ffffff88;width: 25%">
-					<img src="img/on.png" id="Lamp2" style="background-color: #ffffff88;width: 25%">
-					<img src="img/on.png" id="Lamp3" style="background-color: #ffffff88;width: 25%">
-					<div id="output"></div>
+					<h1>Basic Communication</h1>
+				</section>
+				<section>
+					<h1>Shadow Device</h1>
+					<div class="fragment">
+					<ul>
+						<li>Desired</li>
+						<li>Reported</li>
+						<li>Delta</li>
+					</ul>
 
+					<aside class="notes">
+						Device it's not upgraded directly, only the shadow with desired states
+					</aside>
+				</section>
+				<section>
+					<h1>Add Simulator</h1>
+				</section>
+				<section>
+					<h1>Communication interruption</h1>
+				</section>
+				<section>
+					<h1>Add Rules</h1>
+				</section>
+				<section>
+
+				</section>
+			</section>
+			<section data-background-image="img/aws-bg.jpg">
+				<section>
+				<button id="open">OPEN</button>
+				<button id="close">CLOSE</button>
+				<br>
+				<img src="img/on.png" id="Lamp3" style="background-color: #ffffff88;width: 25%" title="Lamp3" >
+				<img src="img/on.png" id="Lamp1" style="background-color: #ffffff88;width: 25%" title="Lamp1">
+				<img src="img/on.png" id="Lamp2" style="background-color: #00ffff88;width: 25%" title="Lamp2">
+				<div id="output"></div>
+				</section>
+				<section>
+					<img data-src="img/aws-tutorial.png" alt="">
 				</section>
 			</section>
 			<section>
